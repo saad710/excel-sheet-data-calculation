@@ -117,8 +117,9 @@ const LabourBoard = () => {
   const allfields = watch();
   console.log(allfields);
   const onSubmit = (data) => console.log(data);
+  const [wipVal,setWip] = useState('')
 
-  useEffect(() => {
+
     // var filteredNames = Object.keys(myObj).filter((name) => /hour_0/.test(name));
     // console.log(filteredNames)
     let putArr = []
@@ -136,11 +137,7 @@ const LabourBoard = () => {
        let filedData = []
        data?.forEach(sub => {
            console.log(allfields[sub])
-           let sumTotal = allfields[sub].reduce(
-            ( previousValue, currentValue ) => previousValue !== undefined ?  previousValue : 0 + currentValue  !== undefined ? currentValue : 0,
-            0
-          )
-          console.log(sumTotal)
+          
         //   return
         filedData.push(allfields[sub])
        })
@@ -149,10 +146,28 @@ const LabourBoard = () => {
       
     })
     console.log(hourData)
- 
-    // putArr?forEach((data,))
+   
+    let withoutUndefined = []
+    hourData?.forEach((hour,index) => {
+        const dataFilter = hour?.filter(info => info !== undefined)
+        // console.log(data)
+        withoutUndefined.push(dataFilter)
+    })
+    console.log(withoutUndefined)
 
-  }, [allfields]);
+    let wipValue = []
+    withoutUndefined?.forEach((hourData,index) => {
+      let sumTotal = hourData.reduce(
+        ( previousValue, currentValue ) =>   parseInt(previousValue)  +   parseInt(currentValue) ,
+        0
+      )
+      console.log(sumTotal)
+      wipValue.push(sumTotal)
+    })
+    console.log(wipValue)
+    
+
+ 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -408,7 +423,7 @@ const LabourBoard = () => {
                         {...field}
                         id="standard-basic"
                         variant="standard"
-                        //  value={`${allfields.Alex__0 + allfields.Hopper__0}`}
+                         value={wipValue[rowindex]}
                         InputProps={{
                           disableUnderline: true,
                         }}
