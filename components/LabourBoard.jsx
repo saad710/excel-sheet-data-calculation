@@ -537,7 +537,7 @@ const LabourBoard = () => {
                 <TableCell
                   sx={{
                     borderLeft: "1px solid black",
-                    backgroundColor: "#addfad",
+                    backgroundColor: `${afterSubtractComplete[rowindex] < 0 ? "red" : "#addfad" }` ,
                   }}
                 >
                   <Controller
@@ -561,7 +561,7 @@ const LabourBoard = () => {
                 <TableCell
                   sx={{
                     borderLeft: "1px solid black",
-                    backgroundColor: "#b19cd9",
+                    backgroundColor: `${afterSubtractComplete[rowindex] < 0 ? "red" : "#b19cd9" }` ,
                   }}
                 >
                   <Controller
@@ -573,6 +573,7 @@ const LabourBoard = () => {
                         {...field}
                         id="standard-basic"
                         variant="standard"
+                       
                         value={afterSubtractComplete[rowindex] !== 0 ? afterSubtractComplete[rowindex] : ""}
                         InputProps={{
                           disableUnderline: true,
