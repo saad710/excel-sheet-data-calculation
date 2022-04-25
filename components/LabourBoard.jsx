@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useMemo} from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -112,62 +112,188 @@ const LabourWorkData = [
 const LabourBoard = () => {
 
 
-  const { register, control, watch, handleSubmit } = useForm();
+  const { register, control, watch, handleSubmit,setValue } = useForm();
 
   const allfields = watch();
   console.log(allfields);
   const onSubmit = (data) => console.log(data);
-  const [wipVal,setWip] = useState('')
 
 
     // var filteredNames = Object.keys(myObj).filter((name) => /hour_0/.test(name));
     // console.log(filteredNames)
-    let putArr = []
-    LabourWorkData?.forEach((infoData,index) => {
-        const regex = new RegExp(`hour__${index}`);
-        // var filteredNames = Object.keys(allfields).filter((name) => /hour__0/.test(name));
-        let filteredNames = Object.keys(allfields).filter((name) => regex.test(name));
-        console.log(filteredNames)
-        putArr.push(filteredNames)
-    })
-    console.log(putArr)
-    let hourData = []
-    putArr?.forEach((data,index) => {
-       console.log(data)
-       let filedData = []
-       data?.forEach(sub => {
-           console.log(allfields[sub])
+  
+
+    const findCompleteValue = (mainArr) => {
+      let putArr = []
+      mainArr?.forEach((infoData,index) => {
+          const regex = new RegExp(`assess__${index}`);
+          // var filteredNames = Object.keys(allfields).filter((name) => /hour__0/.test(name));
+          let filteredNames = Object.keys(allfields).filter((name) => regex.test(name));
+          console.log(filteredNames)
+          putArr.push(filteredNames)
+      })
+      console.log(putArr)
+      let hourData = []
+      putArr?.forEach((data,index) => {
+         console.log(data)
+         let fieldData = []
+         data?.forEach(sub => {
+             console.log(allfields[sub])
+            
+          //   return
+          fieldData.push(allfields[sub])
+         })
+         console.log(fieldData)
+         hourData.push(...fieldData)
+        
+      })
+      console.log(hourData)
+      const modifiedData = hourData.map(hr => {
+        if(hr === undefined){
+          return 0;
+        }
+        else{
+          return parseInt(hr)
+        }
+      })
+      console.log(modifiedData)
+      const removeNaN = modifiedData?.map(modified => {
+        if(isNaN(modified)){
+          return 0;
+        }
+        else{
+          return modified;
+        }
+      })
+      console.log(removeNaN)
+      return removeNaN;
+    }
+
+    const findWipValue = (requireArr) => {
+      let putArr = []
+      requireArr?.forEach((infoData,index) => {
+          const regex = new RegExp(`hour__${index}`);
+          // var filteredNames = Object.keys(allfields).filter((name) => /hour__0/.test(name));
+          let filteredNames = Object.keys(allfields).filter((name) => regex.test(name));
+          console.log(filteredNames)
+          putArr.push(filteredNames)
+      })
+      console.log(putArr)
+      let hourData = []
+      putArr?.forEach((data,index) => {
+         console.log(data)
+         let filedData = []
+         data?.forEach(sub => {
+             console.log(allfields[sub])
+            
+          //   return
+          filedData.push(allfields[sub])
+         })
+         console.log(filedData)
+         hourData.push(filedData)
+        
+      })
+      console.log(hourData)
+     
+      let withoutUndefined = []
+      hourData?.forEach((hour,index) => {
+          // const dataFilter = hour?.filter(info => info !== undefined)
+          const modifiedData = hour?.map(hr => {
+            if(hr === undefined){
+              return "0";
+            }
+            else{
+              return hr
+            }
+          })
+          // console.log(data)
+          withoutUndefined.push(modifiedData)
+      })
+      console.log(withoutUndefined)
+
           
-        //   return
-        filedData.push(allfields[sub])
-       })
-       console.log(filedData)
-       hourData.push(filedData)
-      
-    })
-    console.log(hourData)
-   
-    let withoutUndefined = []
-    hourData?.forEach((hour,index) => {
-        const dataFilter = hour?.filter(info => info !== undefined)
-        // console.log(data)
-        withoutUndefined.push(dataFilter)
-    })
-    console.log(withoutUndefined)
-
-    let wipValue = []
-    withoutUndefined?.forEach((hourData,index) => {
-      let sumTotal = hourData.reduce(
-        ( previousValue, currentValue ) =>   parseInt(previousValue)  +   parseInt(currentValue) ,
-        0
-      )
-      console.log(sumTotal)
-      wipValue.push(sumTotal)
-    })
-    console.log(wipValue)
-    
-
+     const numberVal = withoutUndefined?.map((hourData,index) => {
+        return hourData.map(val => {
+          if(typeof(val) !== "number"){
+            return parseInt(val)
+          }
+          
+        })
+      })
+      console.log(numberVal)
  
+      const removeNaN = numberVal?.map((num,index) => {
+        return num?.map(value => {
+          if(isNaN(value)){
+            return 0;
+          }
+          else{
+            return value;
+          }
+        })
+      })
+      console.log(removeNaN)
+    
+  
+      let wipValue = []
+      removeNaN?.forEach((hourData,index) => {
+        let sumTotal = hourData.reduce(
+          ( previousValue, currentValue ) =>   previousValue  +   currentValue ,
+0
+        )
+        console.log(sumTotal)
+        wipValue.push(sumTotal)
+      })
+ 
+      console.log(wipValue)
+      return wipValue;
+    }
+    const resultForWip = findWipValue(LabourWorkData)
+    console.log(resultForWip)
+
+    const resultForComplete = findCompleteValue(LabourWorkData)
+    console.log(resultForComplete)
+
+    // const SubtractForToCmplete = (a,b) => {
+    //   var x = a.map(function(item, index) {
+    //     // In this case item correspond to currentValue of array a, 
+    //     // using index to get value from array b
+    //     return item - b[index];
+    //   })
+    //   console.log(x)
+    
+    // }
+    // const finalValComplete = SubtractForToCmplete(resultForWip,resultForComplete)
+    // console.log(finalValComplete)
+
+    // var array1 = [1,2,3,4,5,6.25];
+    // var array2 = [9,8,7,6,5,4];
+    
+    // const diffNumber = (arr1, arr2) => arr1.map(function (num, idx) { return num- arr2[idx] });
+    
+    // const d = diffNumber(array2, array1);
+    // console.log(d)
+    // useEffect(() => {
+    //   if(resultForComplete.length > 0){
+
+    //   }
+    // })
+
+    const subtractArrays = (a,b) => {
+    
+        const x = a.map(function (num, idx) { return num- b[idx] })
+        console.log(x)
+        return x
+     
+    }
+    const afterSubtractComplete = subtractArrays(resultForComplete,resultForWip)
+    console.log(afterSubtractComplete)
+
+
+    
+ 
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -423,7 +549,8 @@ const LabourBoard = () => {
                         {...field}
                         id="standard-basic"
                         variant="standard"
-                         value={wipValue[rowindex]}
+                         value={resultForWip[rowindex] !== 0 ? resultForWip[rowindex] : "" }
+                        //  hidden={true}
                         InputProps={{
                           disableUnderline: true,
                         }}
@@ -446,6 +573,7 @@ const LabourBoard = () => {
                         {...field}
                         id="standard-basic"
                         variant="standard"
+                        value={afterSubtractComplete[rowindex] !== 0 ? afterSubtractComplete[rowindex] : ""}
                         InputProps={{
                           disableUnderline: true,
                         }}
