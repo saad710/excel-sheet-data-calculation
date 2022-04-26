@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useMemo} from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -24,7 +24,7 @@ const painters = ["Christine", "Alex", "Grey", "Hopper"];
 //     foo2: 'test',
 //     foo3: 'test',
 //   };
-  
+
 //   const res = Object.keys(myObj).filter(([c]) => c == "[a-zA-Z]+_0-9");
 //   console.log(res);
 // let filtered_keys = (obj, filter) => {
@@ -34,7 +34,7 @@ const painters = ["Christine", "Alex", "Grey", "Hopper"];
 //         keys.push(key)
 //     return keys
 //   }
-  
+
 //   // example:
 //   let filteredNames = filtered_keys(myObj, /hour_1/)
 
@@ -110,174 +110,11 @@ const LabourWorkData = [
 ];
 
 const LabourBoard = () => {
-
-
-  const { register, control, watch, handleSubmit,setValue } = useForm();
+  const { register, control, watch, handleSubmit, setValue } = useForm();
 
   const allfields = watch();
   console.log(allfields);
   const onSubmit = (data) => console.log(data);
-
-  useEffect(() => {
-    LabourWorkData?.forEach((data,index) => {
-
-      // setValue(`wip__${[index]}`,3)
-    })
-  },[])
-
-
-    // var filteredNames = Object.keys(myObj).filter((name) => /hour_0/.test(name));
-    // console.log(filteredNames)
-  
-
-//     const findCompleteValue = (mainArr) => {
-//       let putArr = []
-//       mainArr?.forEach((infoData,index) => {
-//           const regex = new RegExp(`assess__${index}`);
-//           // var filteredNames = Object.keys(allfields).filter((name) => /hour__0/.test(name));
-//           let filteredNames = Object.keys(allfields).filter((name) => regex.test(name));
-//           console.log(filteredNames)
-//           putArr.push(filteredNames)
-//       })
-//       console.log(putArr)
-//       let hourData = []
-//       putArr?.forEach((data,index) => {
-//          console.log(data)
-//          let fieldData = []
-//          data?.forEach(sub => {
-//              console.log(allfields[sub])
-            
-//           //   return
-//           fieldData.push(allfields[sub])
-//          })
-//          console.log(fieldData)
-//          hourData.push(...fieldData)
-        
-//       })
-//       console.log(hourData)
-//       const modifiedData = hourData.map(hr => {
-//         if(hr === undefined){
-//           return 0;
-//         }
-//         else{
-//           return parseInt(hr)
-//         }
-//       })
-//       console.log(modifiedData)
-//       const removeNaN = modifiedData?.map(modified => {
-//         if(isNaN(modified)){
-//           return 0;
-//         }
-//         else{
-//           return modified;
-//         }
-//       })
-//       console.log(removeNaN)
-//       return removeNaN;
-//     }
-
-//     const findWipValue = (requireArr) => {
-//       let putArr = []
-//       requireArr?.forEach((infoData,index) => {
-//           const regex = new RegExp(`hour__${index}`);
-//           // var filteredNames = Object.keys(allfields).filter((name) => /hour__0/.test(name));
-//           let filteredNames = Object.keys(allfields).filter((name) => regex.test(name));
-//           console.log(filteredNames)
-//           putArr.push(filteredNames)
-//       })
-//       console.log(putArr)
-//       let hourData = []
-//       putArr?.forEach((data,index) => {
-//          console.log(data)
-//          let filedData = []
-//          data?.forEach(sub => {
-//              console.log(allfields[sub])
-            
-//           //   return
-//           filedData.push(allfields[sub])
-//          })
-//          console.log(filedData)
-//          hourData.push(filedData)
-        
-//       })
-//       console.log(hourData)
-     
-//       let withoutUndefined = []
-//       hourData?.forEach((hour,index) => {
-//           // const dataFilter = hour?.filter(info => info !== undefined)
-//           const modifiedData = hour?.map(hr => {
-//             if(hr === undefined){
-//               return "0";
-//             }
-//             else{
-//               return hr
-//             }
-//           })
-//           // console.log(data)
-//           withoutUndefined.push(modifiedData)
-//       })
-//       console.log(withoutUndefined)
-
-          
-//      const numberVal = withoutUndefined?.map((hourData,index) => {
-//         return hourData.map(val => {
-//           if(typeof(val) !== "number"){
-//             return parseInt(val)
-//           }
-          
-//         })
-//       })
-//       console.log(numberVal)
- 
-//       const removeNaN = numberVal?.map((num,index) => {
-//         return num?.map(value => {
-//           if(isNaN(value)){
-//             return 0;
-//           }
-//           else{
-//             return value;
-//           }
-//         })
-//       })
-//       console.log(removeNaN)
-    
-  
-//       let wipValue = []
-//       removeNaN?.forEach((hourData,index) => {
-//         let sumTotal = hourData.reduce(
-//           ( previousValue, currentValue ) =>   previousValue  +   currentValue ,
-// 0
-//         )
-//         console.log(sumTotal)
-//         wipValue.push(sumTotal)
-//       })
- 
-//       console.log(wipValue)
-//       return wipValue;
-//     }
-//     const resultForWip = findWipValue(LabourWorkData)
-//     console.log(resultForWip)
-
-//     const resultForComplete = findCompleteValue(LabourWorkData)
-//     console.log(resultForComplete)
-
-
-
-//     const subtractArrays = (a,b) => {
-    
-//         const x = a.map(function (num, idx) { return num- b[idx] })
-//         console.log(x)
-//         return x
-     
-//     }
-//     const afterSubtractComplete = subtractArrays(resultForComplete,resultForWip)
-//     console.log(afterSubtractComplete)
-
-
-    
- 
-
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -401,7 +238,8 @@ const LabourBoard = () => {
               <TableRow key={rowindex}>
                 <TableCell>
                   <Controller
-                    name={"contact" + "__" + rowindex}
+                    name={"contact" + "__" + data.Job}
+                    defaultValue={data.Contact}
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -418,7 +256,44 @@ const LabourBoard = () => {
                 </TableCell>
                 <TableCell sx={{ borderLeft: "1px solid black" }}>
                   <Controller
-                    name={"date" + "__" + rowindex}
+                    name={"date" + "__" + data.Job}
+                    control={control}
+                    defaultValue={data.Date}
+                    render={({ field }) => (
+                      <TextField
+                        fullWidth
+                        {...field}
+                        id="standard-basic"
+                        variant="standard"
+                        InputProps={{
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </TableCell>
+                <TableCell sx={{ borderLeft: "1px solid black" }}>
+                  <Controller
+                    name={"job" + "__" + data.Job}
+                    control={control}
+                    defaultValue={data.Job}
+                    render={({ field }) => (
+                      <TextField
+                        fullWidth
+                        {...field}
+                        id="standard-basic"
+                        variant="standard"
+                        InputProps={{
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </TableCell>
+                <TableCell sx={{ borderLeft: "1px solid black" }}>
+                  <Controller
+                    name={"client" + "__" + data.Job}
+                    defaultValue={data.Client}
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -435,7 +310,8 @@ const LabourBoard = () => {
                 </TableCell>
                 <TableCell sx={{ borderLeft: "1px solid black" }}>
                   <Controller
-                    name={"job" + "__" + rowindex}
+                    name={"project" + "__" + data.Job}
+                    defaultValue={data.Project}
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -452,41 +328,7 @@ const LabourBoard = () => {
                 </TableCell>
                 <TableCell sx={{ borderLeft: "1px solid black" }}>
                   <Controller
-                    name={"client" + "__" + rowindex}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        fullWidth
-                        {...field}
-                        id="standard-basic"
-                        variant="standard"
-                        InputProps={{
-                          disableUnderline: true,
-                        }}
-                      />
-                    )}
-                  />
-                </TableCell>
-                <TableCell sx={{ borderLeft: "1px solid black" }}>
-                  <Controller
-                    name={"project" + "__" + rowindex}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        fullWidth
-                        {...field}
-                        id="standard-basic"
-                        variant="standard"
-                        InputProps={{
-                          disableUnderline: true,
-                        }}
-                      />
-                    )}
-                  />
-                </TableCell>
-                <TableCell sx={{ borderLeft: "1px solid black" }}>
-                  <Controller
-                    name={"officeBudget" + "__" + rowindex}
+                    name={"officeBudget" + "__" + data.Job}
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -514,24 +356,24 @@ const LabourBoard = () => {
                         InputProps={{
                           disableUnderline: true,
                         }}
-                        onChange={(e)=>{
-                          field.onChange(e.target.value)
-                          const grabId=field.name.split("__")[1]
-                          const wipValue=watch("wip"+"__"+grabId) || 0
-                          const assessValue=watch("assess"+"__"+grabId)
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                          const grabId = field.name.split("__")[1];
+                          const wipValue = watch("wip" + "__" + grabId) || 0;
+                          let assessValue = watch("assess" + "__" + grabId);
 
-                          if(/^\d+$/.test(assessValue)){
-                            assessValue=parseInt(assessValue)
-                          }else{
-                            assessValue=0
+                          // const regex = /^\d+$/;
+
+                          if (/^\d+$/.test(assessValue)) {
+                            assessValue = parseInt(assessValue);
+                          } else {
+                            assessValue = 0;
                           }
+                          console.log(assessValue);
 
-                          let toCompleteValue=assessValue-wipValue;
+                          let toCompleteValue = assessValue - wipValue;
 
-
-                          setValue('toComplete__'+grabId,toCompleteValue)
-                          
-                        
+                          setValue("toComplete__" + grabId, toCompleteValue);
                         }}
                       />
                     )}
@@ -540,7 +382,10 @@ const LabourBoard = () => {
                 <TableCell
                   sx={{
                     borderLeft: "1px solid black",
-                    backgroundColor: watch('toComplete__'+[data.Job]) < 0 ? "red" : "#addfad"  ,
+                    backgroundColor:
+                      watch("toComplete__" + [data.Job]) < 0
+                        ? "red"
+                        : "#addfad",
                   }}
                 >
                   <Controller
@@ -552,8 +397,8 @@ const LabourBoard = () => {
                         {...field}
                         id="standard-basic"
                         variant="standard"
-                        onChange={(e)=>{
-                          return
+                        onChange={(e) => {
+                          return;
                         }}
                         //  value={resultForWip[rowindex] !== 0 ? resultForWip[rowindex] : "" }
                         //  hidden={true}
@@ -567,7 +412,10 @@ const LabourBoard = () => {
                 <TableCell
                   sx={{
                     borderLeft: "1px solid black",
-                    backgroundColor: watch('toComplete__'+[data.Job]) < 0 ? "red" : "#addfad"  ,
+                    backgroundColor:
+                      watch("toComplete__" + [data.Job]) < 0
+                        ? "red"
+                        : "#addfad",
                   }}
                 >
                   <Controller
@@ -579,7 +427,6 @@ const LabourBoard = () => {
                         {...field}
                         id="standard-basic"
                         variant="standard"
-                       
                         // value={afterSubtractComplete[rowindex] !== 0 ? afterSubtractComplete[rowindex] : ""}
                         InputProps={{
                           disableUnderline: true,
@@ -589,14 +436,21 @@ const LabourBoard = () => {
                   />
                 </TableCell>
                 <TableCell sx={{ borderLeft: "1px solid black" }}>
-                  <TextField
-                    fullWidth
-                    id="standard-basic"
-                    variant="standard"
-                    {...register("toComplete")}
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
+                  <Controller
+                    name={"status" + "__" + data.Job}
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        fullWidth
+                        {...field}
+                        id="standard-basic"
+                        variant="standard"
+                        // value={afterSubtractComplete[rowindex] !== 0 ? afterSubtractComplete[rowindex] : ""}
+                        InputProps={{
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
                   />
                 </TableCell>
                 {data.painters?.map((info, index) => (
@@ -610,37 +464,45 @@ const LabourBoard = () => {
                           {...field}
                           id="standard-basic"
                           variant="standard"
-                     
-                          onChange={(e)=>{
-                            console.log(field.name)
-                            field.onChange(e.target.value)
-                            const grabId=field.name.split("__")[1]
-                            console.log(grabId)
-                            const assessValue=watch("assess"+"__"+grabId) || 0
+                          onChange={(e) => {
+                            console.log(field.name);
+                            field.onChange(e.target.value);
+                            const grabId = field.name.split("__")[1];
+                            console.log(grabId);
+                            let assessValue =
+                              watch("assess" + "__" + grabId) || 0;
 
-                            console.log(watch())
-                            const allPainters=data.painters
+                            if (/^\d+$/.test(assessValue)) {
+                              assessValue = parseInt(assessValue);
+                            } else {
+                              assessValue = 0;
+                            }
+                            // console.log(assessValue)
+
+                            console.log(watch());
+                            const allPainters = data.painters;
                             // console.log({allPainters})
 
-                            let wipValue=0
+                            let wipValue = 0;
                             let toCompleteValue;
 
-                            allPainters.forEach(painter=>{
-                                    
-                              const value=watch(painter.name+"__"+grabId)
+                            allPainters.forEach((painter) => {
+                              const value = watch(painter.name + "__" + grabId);
 
                               const regex = /^\d+$/;
 
-                              wipValue+=regex.test(value) ? parseInt(value) :0
+                              wipValue += regex.test(value)
+                                ? parseInt(value)
+                                : 0;
+                            });
+                            // console.log("assess",assessValue)
+                            // console.log("wip",wipValue)
+                            toCompleteValue = assessValue - wipValue;
+                            console.log({ toCompleteValue });
+                            setValue("toComplete__" + grabId, toCompleteValue);
+                            setValue("wip__" + grabId, wipValue);
 
-                  
-                            })
-                            toCompleteValue=assessValue-wipValue
-                            console.log({toCompleteValue})
-                            setValue('toComplete__'+grabId,toCompleteValue)
-                            setValue('wip__'+grabId,wipValue)
-
-                            console.log({wipValue})
+                            console.log({ wipValue });
                           }}
                           InputProps={{
                             disableUnderline: true,
