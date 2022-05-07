@@ -46,14 +46,14 @@ const LabourWorkData = [
     Client: "furora International",
     Project: "Library Management",
     officeBudget: 0,
-    Assess: 0,
+    Assess: 100,
     Wip: 0,
     toComplete: 0,
     painters: [
-      { name: "Christine", value: 0 },
-      { name: "Alex", value: 0 },
-      { name: "Grey", value: 0 },
-      { name: "Hopper", value: 0 },
+      { name: "Christine", value: 10 },
+      { name: "Alex", value: 12 },
+      { name: "Grey", value: 14 },
+      { name: "Hopper", value: 15 },
     ],
   },
   {
@@ -63,13 +63,13 @@ const LabourWorkData = [
     Client: "furora International",
     Project: "Library Management",
     officeBudget: 0,
-    Assess: 0,
+    Assess: 200,
     Wip: 0,
     toComplete: 0,
     painters: [
       { name: "Christine", value: 0 },
-      { name: "Alex", value: 0 },
-      { name: "Grey", value: 0 },
+      { name: "Alex", value: 22 },
+      { name: "Grey", value: 85 },
       { name: "Hopper", value: 0 },
     ],
   },
@@ -80,12 +80,12 @@ const LabourWorkData = [
     Client: "furora International",
     Project: "Library Management",
     officeBudget: 0,
-    Assess: 0,
+    Assess: 220,
     Wip: 0,
     toComplete: 0,
     painters: [
-      { name: "Christine", value: 0 },
-      { name: "Alex", value: 0 },
+      { name: "Christine", value: 60 },
+      { name: "Alex", value: 17 },
       { name: "Grey", value: 0 },
       { name: "Hopper", value: 0 },
     ],
@@ -97,14 +97,14 @@ const LabourWorkData = [
     Client: "furora International",
     Project: "Library Management",
     officeBudget: 0,
-    Assess: 0,
+    Assess: 300,
     Wip: 0,
     toComplete: 0,
     painters: [
-      { name: "Christine", value: 0 },
-      { name: "Alex", value: 0 },
-      { name: "Grey", value: 0 },
-      { name: "Hopper", value: 0 },
+      { name: "Christine", value: 12 },
+      { name: "Alex", value: 13},
+      { name: "Grey", value: 40 },
+      { name: "Hopper", value: 55 },
     ],
   },
 ];
@@ -115,6 +115,26 @@ const LabourBoard = () => {
   const allfields = watch();
   console.log(allfields);
   const onSubmit = (data) => console.log(data);
+
+  useEffect(() => {
+    LabourWorkData.forEach(LabourInfo => {
+     const jobId = LabourInfo.Job
+     let wipValue = 0
+     LabourInfo.painters.forEach(painter => {
+       setValue(painter.name + "__" + jobId,painter.value )
+       wipValue += painter.value
+     })
+     setValue("wip" + "__" + jobId,wipValue)
+     let assessValue = watch("assess" + "__" + jobId);
+     if (/^\d+$/.test(assessValue)) {
+      assessValue = parseInt(assessValue);
+    } else {
+      assessValue = 0;
+    }
+    let toCompleteValue = assessValue - wipValue
+     setValue("toComplete" + "__" + jobId, toCompleteValue)
+    })
+  },[])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -347,6 +367,7 @@ const LabourBoard = () => {
                   <Controller
                     name={"assess" + "__" + data.Job}
                     control={control}
+                    defaultValue={data.Assess}
                     render={({ field }) => (
                       <TextField
                         fullWidth
@@ -458,14 +479,17 @@ const LabourBoard = () => {
                     <Controller
                       name={info.name + "__" + data.Job}
                       control={control}
+            
                       render={({ field }) => (
                         <TextField
                           fullWidth
                           {...field}
                           id="standard-basic"
                           variant="standard"
+                          defaultValue={field.value}
                           onChange={(e) => {
                             console.log(field.name);
+                           
                             field.onChange(e.target.value);
                             const grabId = field.name.split("__")[1];
                             console.log(grabId);
